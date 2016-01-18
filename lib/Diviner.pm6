@@ -3,7 +3,7 @@ unit module Diviner;
 grammar Divinations {
 
   regex Symbol {
-    <:Letter><:Letter + :Number + [ _ \- : ]>*
+    <:Letter>[<[ ' - ]><?before <:Letter>>|<:Letter + :Number + [ _ : ]>]*
   }
 
   regex PackedSymbol {
@@ -32,6 +32,10 @@ grammar Divinations {
 
   token method {
     \s* [multi \s+]? method \s+ (<Symbol>)
+  }
+
+  token variable {
+    \s* [my|our|has|state|temp|let] \s+ (<[ $ @ % & ]>)(<Symbol>)
   }
 }
 
