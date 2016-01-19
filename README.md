@@ -57,6 +57,8 @@
 
 ## About
 
+[![Join the chat at https://gitter.im/MadcapJake/p6dx](https://badges.gitter.im/MadcapJake/p6dx.svg)](https://gitter.im/MadcapJake/p6dx?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 _P6Dx_ provides a platform for leveraging language workflow tools in any text editor.  The included `p6dx` bin script provides several flags with easy access to:
 
   * Code completions (per file, per package, even required packages)
