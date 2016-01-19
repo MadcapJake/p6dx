@@ -166,7 +166,7 @@ my Completion @completions;
 for @files -> $io {
   my $file = $io.absolute.Str;
   my $text = slurp($file);
-  @completions = gather Divinants.parse($text, :actions(Divinations.new( :$file )));
+  @completions.append: gather Divinants.parse($text, :actions(Divinations.new( :$file )));
 }
 
 multi sub infix:<cmp>(Completion:D $a, Completion:D $b) {
