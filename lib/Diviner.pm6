@@ -25,6 +25,7 @@ grammar Divinants {
     | <module>
     | <class>
     | <role>
+    | <grammar>
     | <named-re>
     | <sub>
     | <method>
@@ -44,6 +45,10 @@ grammar Divinants {
 
   token class {
     \s* [unit \s+]? class \s+ <PackedSymbol>
+  }
+
+  token grammar {
+    \s* grammar \s+ <PackedSymbol>
   }
 
   token role {
@@ -95,6 +100,15 @@ class Divinations {
       file => $!file,
       name => $<PackedSymbol>.Str,
       kind => 'class',
+      line => $!ln
+    )
+  }
+
+  method grammar($/ is copy) {
+    take Completion.new(
+      file => $!file,
+      name => $<PackedSymbol>.Str,
+      kind => 'grammar',
       line => $!ln
     )
   }
