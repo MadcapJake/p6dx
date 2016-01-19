@@ -28,9 +28,26 @@ zef install p6dx
 
 Mostly TBD.  You will be able to specify syntax rules in either a user's home folder, the project's base path, a manually supplied file, or via a special comment syntax.
 
+### Command Line
+```shell
+p6dx # displays help
+p6dx -d $file_or_dir "$part_of_string" # completions
+p6dx -x $file_or_dir # syntax check
+```
+
+### Editors
+
+Currently no editors are using P6Dx, however after I've finalized some of this I plan to integrate this into `linter-perl6` for Atom Editor and then I'll try my hand at writing a Gedit plugin.
+
 # Contributing
 
 I'm gonna try and keep some high-level issues for each feature.  Right now, I mostly need help hashing out conventions and solving bugs in my really early code.  Feel free to submit PRs too though!
+
+# Ideas
+
+  * code coverage
+  * ctags generation
+  * code formatter
 
 # Acknowledgements
 
