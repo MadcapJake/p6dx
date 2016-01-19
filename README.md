@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="http://github.com/madcapjake/p6dx">
-    <img src="">
+    <img src="https://raw.githubusercontent.com/MadcapJake/p6dx/master/workout-camelia.png">
   </a>
 </div>
 <br>
@@ -31,3 +31,8 @@ Mostly TBD.  You will be able to specify syntax rules in either a user's home fo
 # Contributing
 
 I'm gonna try and keep some high-level issues for each feature.  Right now, I mostly need help hashing out conventions and solving bugs in my really early code.  Feel free to submit PRs too though!
+
+# Acknowledgements
+
+* [Camelia](https://github.com/perl6/mu/blob/master/misc/camelia.txt)
+* [Kettlebell by TMD from the Noun Project](https://thenounproject.com/term/kettlebell/253682)
