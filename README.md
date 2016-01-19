@@ -25,7 +25,7 @@
 
   <a href="https://github.com/MadcapJake/p6dx/issues">
     <img src="https://img.shields.io/github/issues/MadcapJake/p6dx.svg"
-         alt="License">
+         alt="Issues">
   </a>
 
   <a href="https://github.com/MadcapJake/p6dx/blob/master/LICENSE">
