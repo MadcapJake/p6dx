@@ -7,6 +7,54 @@
 </div>
 <br>
 
+<p align="center"><big>
+
+</big></p>
+
+<p align="center">
+
+  <a href="https://coveralls.io/r/MadcapJake/p6dx">
+    <img src="https://img.shields.io/coveralls/MadcapJake/p6dx.svg"
+         alt="Coverage Status">
+  </a>
+
+  <a href="https://travis-ci.org/MadcapJake/p6dx">
+    <img src="https://img.shields.io/travis/MadcapJake/p6dx.svg"
+         alt="Build Status">
+  </a>
+
+  <a href="https://github.com/MadcapJake/p6dx/issues">
+    <img src="https://img.shields.io/github/issues/MadcapJake/p6dx.svg"
+         alt="License">
+  </a>
+
+  <a href="https://github.com/MadcapJake/p6dx/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/MadcapJake/p6dx.svg"
+         alt="License">
+  </a>
+
+  <a href="https://gitter.im/MadcapJake/p6dx">
+    <img src="https://img.shields.io/gitter/room/MadcapJake/p6dx.svg"
+         alt="Gitter">
+  </a>
+</p>
+
+<p align="center">
+  <b><a href="#about">About</a></b>
+  |
+  <b><a href="#usage">Usage</a></b>
+  |
+  <b><a href="/docs/README.md">Documentation</a></b>
+  |
+  <b><a href="https://github.com/MadcapJake/p6dx/wiki#rules">Rules</a></b>
+  |
+  <b><a href="#contributing">Contributing</a></b>
+
+</p>
+
+<br>
+
+
 ## About
 
 _P6Dx_ provides a platform for leveraging language workflow tools in any text editor.  The included `p6dx` bin script provides several flags with easy access to:
@@ -37,7 +85,7 @@ p6dx -x $file_or_dir # syntax check
 
 ### Editors
 
-Currently no editors are using P6Dx, however after I've finalized some of this I plan to integrate this into `linter-perl6` for Atom Editor and then I'll try my hand at writing a Gedit plugin.
+Currently no editors are using P6Dx, however after I've finalized some of the data design, I plan to integrate this into `linter-perl6` for Atom Editor and then I'll try my hand at writing a Gedit plugin.
 
 # Contributing
 
