@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="http://github.com/madcapjake/p6dx">
-    <img src="https://raw.githubusercontent.com/MadcapJake/p6dx/master/workout-camelia.png">
+    <img width=250px src="https://raw.githubusercontent.com/MadcapJake/p6dx/master/workout-camelia.png">
   </a>
 </div>
 <br>
