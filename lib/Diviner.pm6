@@ -72,10 +72,6 @@ class Completion {
   has $.name;
   has $.kind;
   has $.line;
-
-  method infix:<cmp>(Completion:D $a, Completion:D $b) {
-    $a.name <=> $b.name;
-  }
 }
 
 class Divinations {
@@ -151,7 +147,7 @@ class Divinations {
 }
 
 my @files = find( :dir('.'), :type('file'), :name(rx!(\.p[m|l]?6?)$!) )».IO.flat.list;
-my @completions;
+my Completion @completions;
 
 for @files -> $io {
   my $file = $io.absolute.Str;
@@ -159,4 +155,10 @@ for @files -> $io {
   @completions = gather Divinants.parse($text, :actions(Divinations.new( :$file )));
 }
 
-for @completions { .say }
+multi sub infix:<cmp>(Completion:D $a, Completion:D $b) {
+  my $name1 = $a.name.substr(1) if $a.name.comb[1] ~~ /<[$@%&]>/;
+  my $name2 = $b.name.substr(1) if $b.name.comb[1] ~~ /<[$@%&]>/;
+  ($name1 // $a.name).lc cmp ($name2 // $b.name).lc;
+}
+
+for @completions.sort({ $^a cmp $^b }) { .say }
