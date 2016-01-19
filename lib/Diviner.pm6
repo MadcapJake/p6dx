@@ -170,8 +170,8 @@ for @files -> $io {
 }
 
 multi sub infix:<cmp>(Completion:D $a, Completion:D $b) {
-  my $name1 = $a.name.substr(1) if $a.name.comb[1] ~~ /<[$@%&]>/;
-  my $name2 = $b.name.substr(1) if $b.name.comb[1] ~~ /<[$@%&]>/;
+  my $name1 = $a.name.substr(1) if $a.name.comb[0] ~~ /<[$@%&]>/;
+  my $name2 = $b.name.substr(1) if $b.name.comb[0] ~~ /<[$@%&]>/;
   ($name1 // $a.name).lc cmp ($name2 // $b.name).lc;
 }
 
