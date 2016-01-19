@@ -156,7 +156,6 @@ my @completions;
 for @files -> $io {
   my $file = $io.absolute.Str;
   my $text = slurp($file);
-  # Divinants.parse('unit module awesome { ... }').say;
   @completions = gather Divinants.parse($text, :actions(Divinations.new( :$file )));
 }
 
