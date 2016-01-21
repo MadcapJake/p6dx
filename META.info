@@ -1,0 +1,8 @@
+{
+  "perl"        : "6",
+  "name"        : "P6Dx",
+  "description" : "A syntax checker & completions generator.",
+  "version"     : "v0.1.0",
+  "authors"     : "Jake Russo",
+  "source-url"  : "git://github.com/madcapjake/p6dx"
+}
