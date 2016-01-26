@@ -79,8 +79,8 @@ Mostly TBD.  You will be able to specify syntax rules in either a user's home fo
 ### Command Line
 ```shell
 p6dx # displays help
-p6dx -d $file_or_dir "$part_of_string" # completions
-p6dx -x $file_or_dir # syntax check
+p6dx --complete="$part_of_string" --file=$file_or_dir # completions
+p6dx --examine=$file_or_dir # syntax check [NOT YET IMPLEMENTED]
 ```
 
 ### Editors
