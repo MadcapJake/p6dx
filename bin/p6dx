@@ -41,6 +41,21 @@ multi sub MAIN (Str :$complete!, Int :$meta!) {
   say meta-info($meta);
 }
 
+multi sub MAIN (Bool :$tags!, Bool :$json, Bool :$ctag) {
+  my @files = find(
+    :dir('.'),
+    :type('file'),
+    :name(rx!(\.p[m|l]?6?)$!)
+  )».IO.flat.list;
+  if $json {
+    say tags-json(@files);
+  } elsif $ctag {
+    tags-ctag(@files).map: { .say };
+  } else {
+    say "Unknown tag style!";
+  }
+}
+
 =for Juerd
 multi sub MAIN ('complete', Str $begin, Bool :$m) {
   # Clairvoyant::meta-info();

@@ -89,7 +89,8 @@ class Divinations {
   method nl($/ is copy) { $!ln++ }
 
   method module($/ is copy) {
-    if $<PackedSymbol>.Str.starts-with: $!begin {
+    my $should-take = $!begin.so ?? $<PackedSymbol>.Str.starts-with: $!begin !! True;
+    if $should-take {
       take Completion.new(
         file => $!file,
         name => $<PackedSymbol>.Str,
@@ -100,7 +101,8 @@ class Divinations {
   }
 
   method class($/ is copy) {
-    if $<PackedSymbol>.Str.starts-with: $!begin {
+    my $should-take = $!begin.so ?? $<PackedSymbol>.Str.starts-with: $!begin !! True;
+    if $should-take {
       take Completion.new(
         file => $!file,
         name => $<PackedSymbol>.Str,
@@ -111,7 +113,8 @@ class Divinations {
   }
 
   method grammar($/ is copy) {
-    if $<PackedSymbol>.Str.starts-with: $!begin {
+    my $should-take = $!begin.so ?? $<PackedSymbol>.Str.starts-with: $!begin !! True;
+    if $should-take {
       take Completion.new(
         file => $!file,
         name => $<PackedSymbol>.Str,
@@ -122,7 +125,8 @@ class Divinations {
   }
 
   method role($/ is copy) {
-    if $<PackedSymbol>.Str.starts-with: $!begin {
+    my $should-take = $!begin.so ?? $<PackedSymbol>.Str.starts-with: $!begin !! True;
+    if $should-take {
       take Completion.new(
         file => $!file,
         name => $<PackedSymbol>.Str,
@@ -133,7 +137,8 @@ class Divinations {
   }
 
   method named-re($/ is copy) {
-    if $<PackedSymbol>.Str.starts-with: $!begin {
+    my $should-take = $!begin.so ?? $<PackedSymbol>.Str.starts-with: $!begin !! True;
+    if $should-take {
       take Completion.new(
         file => $!file,
         name => $<PackedSymbol>.Str,
@@ -144,7 +149,8 @@ class Divinations {
   }
 
   method sub($/ is copy) {
-    if $<Symbol>.Str.starts-with: $!begin {
+    my $should-take = $!begin.so ?? $<Symbol>.Str.starts-with: $!begin !! True;
+    if $should-take {
       take Completion.new(
         file => $!file,
         name => $<Symbol>.Str,
@@ -155,7 +161,8 @@ class Divinations {
   }
 
   method method($/ is copy) {
-    if $<Symbol>.Str.starts-with: $!begin {
+    my $should-take = $!begin.so ?? $<Symbol>.Str.starts-with: $!begin !! True;
+    if $should-take {
       take Completion.new(
         file => $!file,
         name => $<Symbol>.Str,
@@ -166,7 +173,8 @@ class Divinations {
   }
 
   method variable($/ is copy) {
-    if ($0 ~ $<Symbol>.Str).starts-with: $!begin {
+    my $should-take = $!begin.so ?? ($0 ~ $<Symbol>.Str).starts-with: $!begin !! True;
+    if $should-take {
       take Completion.new(
         file => $!file,
         name => ($0 ~ $<Symbol>.Str),
@@ -202,4 +210,37 @@ sub completions (Str $begin, @files) is export {
     }
   }
   for @completions { .perl.say }
+}
+
+sub tags-json (@files) is export {
+  use JSON::Marshal;
+
+  my Completion @completions;
+
+  for @files -> $io {
+    my $file = $io.absolute.Str;
+    my $text = slurp $file;
+    @completions.append: gather {
+      Divinants.parse($text, :actions(Divinations.new( :$file )));
+    }
+  }
+
+  '[' ~ @completions.map({ marshal($_) }).join(',') ~ ']'
+}
+
+sub tags-ctag (@files) is export {
+
+  my Completion @completions;
+
+  for @files -> $io {
+    my $file = $io.absolute.Str;
+    my $text = slurp $file;
+    @completions.append: gather {
+      Divinants.parse($text, :actions(Divinations.new( :$file )));
+    }
+  }
+
+  gather for @completions {
+    take "{$_.name}\t{$_.file}\t{$_.line}\t{$_.kind}";
+  }
 }
