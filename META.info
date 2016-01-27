@@ -2,7 +2,7 @@
   "perl"        : "6",
   "name"        : "App::P6Dx",
   "description" : "A syntax checker & completions generator.",
-  "version"     : "v0.1.0",
+  "version"     : "v0.2.0",
   "authors"     : "Jake Russo",
   "source-url"  : "git://github.com/madcapjake/p6dx",
   "depends"     : [
