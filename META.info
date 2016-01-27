@@ -1,8 +1,12 @@
 {
   "perl"        : "6",
-  "name"        : "P6Dx",
+  "name"        : "App::P6Dx",
   "description" : "A syntax checker & completions generator.",
   "version"     : "v0.1.0",
   "authors"     : "Jake Russo",
-  "source-url"  : "git://github.com/madcapjake/p6dx"
+  "source-url"  : "git://github.com/madcapjake/p6dx",
+  "depends"     : [
+    "File::Find",
+    "JSON::Marshal"
+  ]
 }
