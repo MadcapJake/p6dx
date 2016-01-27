@@ -80,6 +80,8 @@ Mostly TBD.  You will be able to specify syntax rules in either a user's home fo
 ```shell
 p6dx # displays help
 p6dx --complete="$part_of_string" --file=$file_or_dir # completions
+p6dx --tags --json # prints json format of all tags
+p6dx --tags --ctag # prints ctag representation
 p6dx --examine=$file_or_dir # syntax check [NOT YET IMPLEMENTED]
 ```
 

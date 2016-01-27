@@ -34,7 +34,14 @@ multi sub MAIN (Str :$complete!, Str :$file) {
 }
 
 multi sub MAIN (Str :$complete!, Bool :$meta!) {
-  say meta-info;
+  my @files = find(
+      :dir('.'),
+      :type('file'),
+      :name(rx!(\.p[m|l]?6?)$!)
+    )».IO.flat.list;
+  my @src-comps = completions($complete, @files);
+  my @dep-comps = completions($complete, dep-mod-files(), :external);
+  with @dep-comps { @src-comps.append: @dep-comps } else { @src-comps }
 }
 
 multi sub MAIN (Str :$complete!, Int :$meta!) {
@@ -55,6 +62,9 @@ multi sub MAIN (Bool :$tags!, Bool :$json, Bool :$ctag) {
     say "Unknown tag style!";
   }
 }
+
+=for debugging
+multi sub MAIN (Bool :$deps!) { for dep-mod-files() { .fmt.say } }
 
 =for Juerd
 multi sub MAIN ('complete', Str $begin, Bool :$m) {

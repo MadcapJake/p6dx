@@ -82,9 +82,12 @@ class Completion {
 
 class Divinations {
 
-  has $.begin;
+  has Str $.begin;
   has $.file;
   has $!ln = 1;
+  has Bool $!internal;
+
+  submethod BUILD(:$!begin, :$!file, :$!ln, :$!internal = False) {}
 
   method nl($/ is copy) { $!ln++ }
 
@@ -173,7 +176,8 @@ class Divinations {
   }
 
   method variable($/ is copy) {
-    my $should-take = $!begin.so ?? ($0 ~ $<Symbol>.Str).starts-with: $!begin !! True;
+    my $should-take = do with $!begin {
+      ($0 ~ $<Symbol>.Str).starts-with: $_ } else { $!internal }
     if $should-take {
       take Completion.new(
         file => $!file,
@@ -200,13 +204,17 @@ sub run {
 }
 =end old
 
-sub completions (Str $begin, @files) is export {
+sub completions (Str $begin, @files, :$external = False) is export {
   my Completion @completions;
   for @files -> $io {
     my $file = $io.absolute.Str;
     my $text = slurp $file;
     @completions.append: gather {
-      Divinants.parse($text, :actions(Divinations.new( :$file, :$begin )))
+      Divinants.parse($text, :actions(Divinations.new(
+        :$file,
+        :$begin,
+        :internal(!$external)
+      )));
     }
   }
   for @completions { .perl.say }
