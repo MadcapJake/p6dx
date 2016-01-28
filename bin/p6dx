@@ -48,16 +48,14 @@ multi sub MAIN (Str :$complete!, Int :$meta!) {
   say meta-info($meta);
 }
 
-multi sub MAIN (Bool :$tags!, Bool :$json, Bool :$ctag) {
-  my @files = find(
-    :dir('.'),
-    :type('file'),
-    :name(rx!(\.p[m|l]?6?)$!)
-  )».IO.flat.list;
+multi sub MAIN (Bool :$tags!, IO(Str) :$file, Bool :$json, Bool :$ctag, Bool :$all) {
+  my @files = do with $file { [$file] } else {
+    find(:dir('.'), :type('file'), :name(rx!(\.p[m|l]?6?)$!))».IO.flat.list;
+  }
   if $json {
-    say tags-json(@files);
+    say tags-json(@files, :$all);
   } elsif $ctag {
-    tags-ctag(@files).map: { .say };
+    tags-ctag(@files, :$all).map: { .say };
   } else {
     say "Unknown tag style!";
   }
@@ -65,6 +63,8 @@ multi sub MAIN (Bool :$tags!, Bool :$json, Bool :$ctag) {
 
 =for debugging
 multi sub MAIN (Bool :$deps!) { for dep-mod-files() { .fmt.say } }
+
+multi sub MAIN (Bool :$test!) { say $Diviner::foo }
 
 =for Juerd
 multi sub MAIN ('complete', Str $begin, Bool :$m) {
