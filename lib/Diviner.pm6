@@ -82,7 +82,7 @@ class Completion {
 
 class Divinations {
 
-  has Str $.begin;
+  has $.begin;
   has $.file;
   has $!ln = 1;
   has Bool $!internal;
@@ -220,7 +220,7 @@ sub completions (Str $begin, @files, :$external = False) is export {
   for @completions { .perl.say }
 }
 
-sub tags-json (@files) is export {
+sub tags-json (@files, :$all) is export {
   use JSON::Marshal;
 
   my Completion @completions;
@@ -229,14 +229,14 @@ sub tags-json (@files) is export {
     my $file = $io.absolute.Str;
     my $text = slurp $file;
     @completions.append: gather {
-      Divinants.parse($text, :actions(Divinations.new( :$file )));
+      Divinants.parse($text, :actions(Divinations.new( :$file, :internal($all) )));
     }
   }
 
-  '[' ~ @completions.map({ marshal($_) }).join(',') ~ ']'
+  "[\n\t" ~ @completions.map({ marshal($_) }).join(",\n\t") ~ "\n]"
 }
 
-sub tags-ctag (@files) is export {
+sub tags-ctag (@files, :$all) is export {
 
   my Completion @completions;
 
@@ -244,7 +244,7 @@ sub tags-ctag (@files) is export {
     my $file = $io.absolute.Str;
     my $text = slurp $file;
     @completions.append: gather {
-      Divinants.parse($text, :actions(Divinations.new( :$file )));
+      Divinants.parse($text, :actions(Divinations.new( :$file, :internal($all) )));
     }
   }
 
@@ -252,3 +252,5 @@ sub tags-ctag (@files) is export {
     take "{$_.name}\t{$_.file}\t{$_.line}\t{$_.kind}";
   }
 }
+
+our $foo = 'woah!';
